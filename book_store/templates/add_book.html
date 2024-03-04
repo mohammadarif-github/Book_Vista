@@ -1,0 +1,31 @@
+{% extends "home.html" %}
+{% load crispy_forms_tags %}
+{% block introduction %}{% endblock introduction %}
+{% block link %}
+<li class="nav-item">
+    <a class="nav-link btn btn-outline-light" href="{% url "homepage" %}">Home</a>
+</li>
+<li class="nav-item">
+    <a class="nav-link btn btn-outline-light ml-3" href="{% url "show_book" %}">Book List</a>
+</li>
+{% endblock link %}
+{% block body %}
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header bg-dark text-white ">
+                    <h3 class="card-title">Book Details</h3>
+                </div>
+                <div class="card-body">
+                    <form method="POST" enctype="multipart/form-data" >
+                        {% csrf_token %}
+                        {{ form|crispy }}
+                        <button type="submit" class="btn btn-primary mt-3">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock body %}

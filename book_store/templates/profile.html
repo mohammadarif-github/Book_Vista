@@ -1,0 +1,118 @@
+{% extends "home.html" %}
+{% load crispy_forms_tags %}
+{% block introduction %}{% endblock introduction %}
+{% block link %}
+<li class="nav-item">
+    <a class="nav-link btn btn-outline-light" href="{% url "homepage" %}">Home</a>
+</li>
+
+<li class="nav-item">
+    <a class="nav-link btn btn-outline-light ml-3" href="{% url "show_book" %}">Book List</a>
+</li>
+<li class="nav-item">
+    <a class="nav-link btn btn-outline-light ml-3" href="{% url "add_book" %}">Add Book</a>
+</li>
+{% endblock link %}
+{% block body %}
+    <!-- User Details Section -->
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <div class="card" style="background-color: #3498db; color: #fff;">
+                    <div class="card-body">
+                        <h2 class="card-title text-center mb-4">User Details</h2>
+                        <p class="card-text h4"><strong>Username:</strong> {{ user.username }}</p>
+                        <p class="card-text h4"><strong>Email:</strong> {{ user.email }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Books Added by User Section -->
+    {% if book_list %}
+    <div class="container">
+    <div class="row">
+        {% for book in book_list %}
+            <div class="col-md-4 mb-6">
+                <div class="card book-card">
+                    <!-- Add the image here -->
+                    {% if book.photo %}
+                    <img src="{{ book.photo.url }}" class="card-img-top" alt="{{ book.book_title }}" style="max-width: 100%; max-height: 200px; object-fit: contain;">
+                    {% endif %}
+                    <div class="card-body">
+                        <!-- Your existing content -->
+                        <h5 class="card-title" style="color: #3498db; font-size: 1.2rem;"><strong>Name:</strong> {{ book.book_title }}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted" style="color: #27ae60; font-size: 1rem;"><strong>Author:</strong> {{ book.author }}</h6>
+                        {% if book.description %}
+                            <p class="card-text" style="color: #555; margin-top: 10px;"><strong>Description:</strong>
+                                <span id="description{{ book.id }}">{{ book.description|slice:":100" }}</span>
+                                {% if book.description|length > 100 %}
+                                    <a href="#" data-toggle="modal" data-target="#descriptionModal{{ book.id }}">See more</a>
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="descriptionModal{{ book.id }}" tabindex="-1" role="dialog" aria-labelledby="descriptionModalLabel{{ book.id }}" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="descriptionModalLabel{{ book.id }}">Full Description</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    {{ book.description }}
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            </p>
+                        {% else %}
+                            <p class="card-text" style="color: #555; margin-top: 10px;"><strong>Description:</strong> No description available</p>
+                        {% endif %}
+                        <div class="text-center mt-3">
+                            <a href="{% url 'edit_book' id=book.id %}" class="btn btn-primary btn-sm mr-2">Edit</a>
+                            <a href="{% url 'delete_book' id=book.id %}" class="btn btn-danger btn-sm">Delete</a>
+                        </div> 
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+        {% else %}
+        <p class="text-center mt-4">No books added yet.</p>
+        {% endif %}
+        
+        {
+        <script>
+            // JavaScript to handle modal content loading
+            $(document).ready(function () {
+                $('.see-more-link').click(function () {
+            var description = $(this).data('description');
+            $('#descriptionModalBody').text(description);
+          });
+        });
+      </script>
+    
+    
+    
+    <div class="modal fade" id="descriptionModal" tabindex="-1" role="dialog" aria-labelledby="descriptionModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="descriptionModalLabel">Book Description</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body" id="descriptionModalBody">
+              <!-- Description content will be loaded here dynamically -->
+            </div>
+          </div>
+        </div>
+      </div>
+{% endblock body %}

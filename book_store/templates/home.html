@@ -1,0 +1,163 @@
+{% load crispy_forms_tags %}
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>BookVista: Your Mini Library Hub</title>
+    <style>
+        .container {
+            margin-top: 20px; /* Adjust the value as needed */
+        }
+        
+        .book-card:hover {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: box-shadow 0.3s ease-in-out;
+        }    
+        .form-body {
+            padding-top: 120px;
+        }
+        .add-book {
+            padding-top: 50px;
+            background-color: #f8f9fa;
+            max-width: 800px; /* Set the maximum width of the form */
+            margin: auto; /* Center the form horizontally */
+        }        
+        .add-book h2 {
+            margin-bottom: 10px; /* Adjust the margin-bottom to reduce the gap */
+        }
+        .login-container {
+            max-width: 400px;
+            margin: auto;
+            margin-top: 50px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .login-form {
+            margin-top: 20px;
+        }
+
+        .login-btn {
+            border-radius: 20px;
+            padding: 10px 20px;
+        }
+
+        .signup-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+        }
+        body {
+            padding-top: 56px;
+        }
+
+        footer {
+            background-color: #f8f9fa;
+            padding: 20px 0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+          .navbar-dark .navbar-nav .nav-link:hover {
+              color: black; /* Set the desired text color during hover */
+          }
+  </style>
+</head>
+
+<body style="background-color: #C8F2FC;">
+    {% comment %} <h1>{{ request.user.first_name }}</h1> {% endcomment %}
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+      <a class="navbar-brand" href="{% url "homepage" %}">BookVista</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+          aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-between" id="navbarNav">
+        {% block link %}
+          <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link btn btn-outline-light" href="{% url "add_book" %}">Add Book</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link btn btn-outline-light ml-3" href="{% url "show_book" %}">Book List</a>
+            </li>
+        </ul>
+        {% endblock link %}
+        <form method="get" class="form-inline ml-auto" action="{% url 'search_book' %}">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>        
+          <ul class="navbar-nav">
+            {% if request.user.is_authenticated %}
+              <li class="nav-item">
+                  <a class="nav-link" href="{% url "profile" %}">Profile</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="{% url "logout" %}">Logout</a>
+              </li>
+            {%else%}
+            <li class="nav-item">
+                <a class="nav-link" href="{% url "login" %}">Login</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url "registration" %}">Register</a>
+            </li>
+            {%endif%}
+          </ul>
+      </div>
+  </nav>
+  
+  
+  {% block introduction %}
+  <div class="container mt-5">
+      <div class="row">
+          <div class="col-md-6">
+              <div class="jumbotron" style="background-color: #3498db; color: #fff; border-radius: 15px; max-height :1000px; ">
+                  <h1 class="display-4">Welcome to Our Mini Library!</h1>
+                  <p class="lead">Explore a vast collection of books and contribute to the ever-growing library. Read, discover, and share your favorite books with the community.</p>
+                  <hr class="my-4" style="border-color: #fff;">
+                  <p>Get started by adding your first book or explore the existing collection.</p>
+                  <a class="btn btn-primary btn-lg" href="{% url "add_book" %}" role="button">Add Your Book</a>
+                  <a class="btn btn-secondary btn-lg" href="{% url "show_book" %}" role="button">Explore Book List</a>
+              </div>
+          </div>
+          <div class="col-md-6 mt-3 mt-md-0">
+              <!-- Use the static template tag for the image -->
+              <img src="{% static 'photos/homepage.jpg' %}" alt="Book Image" class="img-fluid rounded" style="max-width: 120%; object-fit: cover; border-radius: 15px;">
+          </div>
+      </div>
+  </div>
+  {% endblock introduction %}
+  
+  
+
+  {% block body %}
+  {% endblock body %}
+
+    <!-- Footer -->
+    <footer class="text-center" style="background-color: #A3E4F3; padding: 20px;">
+        <p>&copy; 2024 BookVista : Your Mini Library Hub. All rights reserved.</p>
+    </footer>
+
+    <!-- Bootstrap JS, Popper.js, and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+</body>
+
+</html>
