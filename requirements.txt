@@ -1,0 +1,10 @@
+asgiref
+crispy-bootstrap5
+Django
+django-autoslug
+django-cors-headers
+django-crispy-forms
+djangorestframework
+pillow
+pytz
+sqlparse
