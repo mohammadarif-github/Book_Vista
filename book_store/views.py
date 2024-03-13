@@ -104,3 +104,8 @@ def delete_book(request,id):
     book = BookModel.objects.get(pk=id).delete()
     return redirect("profile")
     
+    
+def show_pdf(request,id):
+    book = BookModel.objects.get(pk=id)
+    print(book.pdf.url)
+    return render(request,"show_pdf.html",{"book":book})

@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-ui*(vq7v6_4864e$^z&3od38pirdoqq0uz3#_n#9#&&4d!_vxg
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 
 CSRF_TRUSTED_ORIGINS = ['https://book-vista.onrender.com','https://*.127.0.0.1']
 
@@ -56,6 +56,9 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+X_FRAME_OPTIONS = 'SAMEORIGIN'
+
+XS_SHARING_ALLOWED_METHODS = ['POST','GET','OPTIONS', 'PUT', 'DELETE']
 ROOT_URLCONF = 'final_project.urls'
 
 TEMPLATES = [

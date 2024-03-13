@@ -51,7 +51,8 @@
 <div class="container">
     <div class="row">
         {% for book in book_list %}
-            <div class="col-md-4 mb-6">
+        {% if book.status == "Approved" %}
+            <div class="col-md-4 mb-4">
                 <div class="card book-card">
                     <!-- Add the image here -->
                     {% if book.photo %}
@@ -90,9 +91,11 @@
                         {% else %}
                             <p class="card-text" style="color: #555; margin-top: 10px;"><strong>Description:</strong> No description available</p>
                         {% endif %}
+                        <a href="{% url 'show_pdf' id=book.id %}" class="btn btn-primary btn-sm mr-2">PDF</a>
                     </div>
                 </div>
             </div>
+          {% endif %}
         {% endfor %}
     </div>
 </div>

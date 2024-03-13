@@ -15,4 +15,5 @@ urlpatterns = [
     path("account/profile/edit_book/<int:id>/", views.edit_book, name="edit_book"),
     path("account/profile/delete_book/<int:id>/", views.delete_book, name="delete_book"),
     path("home/search/", views.search_book, name="search_book"),
+    path("show_book/pdf/<int:id>/",views.show_pdf,name="show_pdf")
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

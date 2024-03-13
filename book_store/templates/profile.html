@@ -32,58 +32,63 @@
     <!-- Books Added by User Section -->
     {% if book_list %}
     <div class="container">
-    <div class="row">
-        {% for book in book_list %}
-            <div class="col-md-4 mb-6">
-                <div class="card book-card">
-                    <!-- Add the image here -->
-                    {% if book.photo %}
-                    <img src="{{ book.photo.url }}" class="card-img-top" alt="{{ book.book_title }}" style="max-width: 100%; max-height: 200px; object-fit: contain;">
-                    {% endif %}
-                    <div class="card-body">
-                        <!-- Your existing content -->
-                        <h5 class="card-title" style="color: #3498db; font-size: 1.2rem;"><strong>Name:</strong> {{ book.book_title }}</h5>
-                        <h6 class="card-subtitle mb-2 text-muted" style="color: #27ae60; font-size: 1rem;"><strong>Author:</strong> {{ book.author }}</h6>
-                        {% if book.description %}
-                            <p class="card-text" style="color: #555; margin-top: 10px;"><strong>Description:</strong>
-                                <span id="description{{ book.id }}">{{ book.description|slice:":100" }}</span>
-                                {% if book.description|length > 100 %}
-                                    <a href="#" data-toggle="modal" data-target="#descriptionModal{{ book.id }}">See more</a>
-                                    <!-- Modal -->
-                                    <div class="modal fade" id="descriptionModal{{ book.id }}" tabindex="-1" role="dialog" aria-labelledby="descriptionModalLabel{{ book.id }}" aria-hidden="true">
-                                        <div class="modal-dialog" role="document">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="descriptionModalLabel{{ book.id }}">Full Description</h5>
-                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    {{ book.description }}
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <div class="row">
+            {% for book in book_list %}
+                <div class="col-md-4 mb-4">
+                    <div class="card book-card">
+                        <!-- Add the image here -->
+                        {% if book.photo %}
+                        <img src="{{ book.photo.url }}" class="card-img-top" alt="{{ book.book_title }}" style="max-width: 100%; max-height: 200px; object-fit: contain;">
+                        {% endif %}
+                        <div class="card-body">
+                            <!-- Your existing content -->
+                            <h5 class="card-title" style="color: #3498db; font-size: 1.2rem;"><strong>Name:</strong> {{ book.book_title }}</h5>
+                            <h6 class="card-subtitle mb-2 text-muted" style="color: #27ae60; font-size: 1rem;"><strong>Author:</strong> {{ book.author }}</h6>
+                            {% if book.description %}
+                                <p class="card-text" style="color: #555; margin-top: 10px;"><strong>Description:</strong>
+                                    <span id="description{{ book.id }}">{{ book.description|slice:":100" }}</span>
+                                    {% if book.description|length > 100 %}
+                                        <a href="#" data-toggle="modal" data-target="#descriptionModal{{ book.id }}">See more</a>
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="descriptionModal{{ book.id }}" tabindex="-1" role="dialog" aria-labelledby="descriptionModalLabel{{ book.id }}" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="descriptionModalLabel{{ book.id }}">Full Description</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        {{ book.description }}
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                {% endif %}
+                                    {% endif %}
+                                </p>
+                            {% else %}
+                                <p class="card-text" style="color: #555; margin-top: 10px;"><strong>Description:</strong> No description available</p>
+                            {% endif %}
+                            <p class="card-text" style="color: #555; margin-top: 10px; font-size: 14px; font-weight: bold;">
+                                Status: <span style="color: #27ae60;">{{ book.status|title }}</span>
                             </p>
-                        {% else %}
-                            <p class="card-text" style="color: #555; margin-top: 10px;"><strong>Description:</strong> No description available</p>
-                        {% endif %}
-                        <div class="text-center mt-3">
-                            <a href="{% url 'edit_book' id=book.id %}" class="btn btn-primary btn-sm mr-2">Edit</a>
-                            <a href="{% url 'delete_book' id=book.id %}" class="btn btn-danger btn-sm">Delete</a>
-                        </div> 
+                            
+                            <div class="button-group text-center mt-3">
+                                <a href="{% url 'edit_book' id=book.id %}" class="btn btn-primary btn-sm mr-2">Edit</a>
+                                <a href="{% url 'delete_book' id=book.id %}" class="btn btn-danger btn-sm">Delete</a>
+                            </div> 
+                        </div>
                     </div>
                 </div>
-            </div>
-        {% endfor %}
+            {% endfor %}
+        </div>
     </div>
-</div>
-        {% else %}
+    
+    {% else %}
         <p class="text-center mt-4">No books added yet.</p>
         {% endif %}
         

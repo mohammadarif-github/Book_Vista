@@ -13,12 +13,13 @@ class RegistrationForm(UserCreationForm):
 class AddBookForm(forms.ModelForm):
     class Meta:
         model = BookModel
-        fields = ["book_title","author","description","photo"]
+        fields = ["book_title","author","description","photo",'pdf',]
         labels = {
             "book_title" : "Book Title",
             "author" : "Author Name",
             "description" : "Description",
-            "photo" : "Image"
+            "photo" : "Image",
+            "pdf" : "Pdf File"
         }
     def save(self, commit=True):
         instance = super().save(commit=False)

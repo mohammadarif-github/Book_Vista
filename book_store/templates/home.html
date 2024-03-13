@@ -4,15 +4,26 @@
 {% load static %}
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <title>BookVista: Your Mini Library Hub</title>
     <style>
+        .book-card {
+            height: 100%;
+        }
+        .card-body {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100%;
+        }
+        .button-group {
+            margin-top: auto;
+        }
         .container {
             margin-top: 20px; /* Adjust the value as needed */
         }
-        
         .book-card:hover {
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             transition: box-shadow 0.3s ease-in-out;
@@ -42,31 +53,35 @@
         .login-form {
             margin-top: 20px;
         }
-
+        .add-book{
+            margin-top : 20 px;
+        }
         .login-btn {
             border-radius: 20px;
             padding: 10px 20px;
         }
-
         .signup-link {
             display: block;
             text-align: center;
             margin-top: 20px;
         }
         body {
-            padding-top: 56px;
+            padding-top: 56px; 
+            overflow-y: auto;
+            padding-bottom: 60px;
         }
 
         footer {
-            background-color: #f8f9fa;
-            padding: 20px 0;
+            background-color: #A3E4F3;
+            padding: 10px;
             position: fixed;
             bottom: 0;
             width: 100%;
+            z-index: 1;
         }
-          .navbar-dark .navbar-nav .nav-link:hover {
-              color: black; /* Set the desired text color during hover */
-          }
+        .navbar-dark .navbar-nav .nav-link:hover {
+            color: black; /* Set the desired text color during hover */
+        }
   </style>
 </head>
 
@@ -142,7 +157,7 @@
   {% endblock body %}
 
     <!-- Footer -->
-    <footer class="text-center" style="background-color: #A3E4F3; padding: 20px;">
+    <footer class="text-center" style="background-color: #A3E4F3; padding: 10px;">
         <p>&copy; 2024 BookVista : Your Mini Library Hub. All rights reserved.</p>
     </footer>
 
