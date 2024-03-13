@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-ui*(vq7v6_4864e$^z&3od38pirdoqq0uz3#_n#9#&&4d!_vxg
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
+ALLOWED_HOSTS = ["*"]
 
 CSRF_TRUSTED_ORIGINS = ['https://book-vista.onrender.com','https://*.127.0.0.1']
 
